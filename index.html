@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hardware Lab - IC Database</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Hardware Lab</h1>
+            <h2>CSE Department, IIT Kharagpur</h2>
+        </div>
+    </header>
+
+    <main>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search by IC Number or Function...">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All ICs</button>
+                <button class="filter-btn" data-filter="ttl">TTL ICs</button>
+                <button class="filter-btn" data-filter="cmos">CMOS ICs</button>
+            </div>
+        </div>
+
+        <div class="ic-grid" id="icContainer">
+            <!-- IC cards will be dynamically inserted here -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Hardware Lab, CSE Department, IIT Kharagpur</p>
+    </footer>
+
+    <!-- IC Details Modal -->
+    <div id="icModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <h2 id="modalICNumber"></h2>
+                <h3 id="modalFunction"></h3>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h4>Description</h4>
+                    <p id="modalDescription"></p>
+                </div>
+                <div class="modal-row">
+                    <div class="modal-section">
+                        <h4>Connection Diagram</h4>
+                        <div id="modalConnectionDiagram" class="image-container"></div>
+                    </div>
+                    <div class="modal-section">
+                        <h4>Function Table</h4>
+                        <div id="modalFunctionTable" class="image-container"></div>
+                    </div>
+                </div>
+                <div class="modal-section">
+                    <h4>Datasheet</h4>
+                    <a id="modalDatasheetLink" href="#" target="_blank" class="datasheet-link">View Datasheet</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
