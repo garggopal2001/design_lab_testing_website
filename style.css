@@ -1,14 +1,21 @@
 /* Base Styles */
 :root {
+    /* IIT KGP Palette (Default) */
     --primary-color: #006747; /* IIT KGP green */
     --secondary-color: #FFC72C; /* IIT KGP gold */
-    --dark-color: #333;
-    --light-color: #f5f5f5;
-    --gray-color: #777;
-    --light-gray: #e0e0e0;
+    --dark-color: #212529; /* Deeper dark for better contrast */
+    --light-color: #f8f9fa; /* Lighter background */
+    --gray-color: #6c757d; /* Bootstrap-like gray */
+    --light-gray: #dee2e6; /* Lighter gray for borders/dividers */
     --white: #fff;
-    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    --border-radius: 8px;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+
+
+    --border-radius: 0.5rem; /* Use rem for consistency */
+    --gap-xs: 0.5rem;
+    --gap-small: 1rem;
+    --gap-medium: 1.5rem;
+    --gap-large: 2rem;
 }
 
 * {
@@ -22,96 +29,176 @@ body {
     line-height: 1.6;
     color: var(--dark-color);
     background-color: var(--light-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* Add smooth scrolling */
+    scroll-behavior: smooth;
 }
 
 h1, h2, h3, h4 {
     font-weight: 500;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--gap-xs);
+    line-height: 1.2;
+    color: var(--dark-color); /* Ensure headings use dark color unless specified */
 }
 
 a {
     text-decoration: none;
     color: var(--primary-color);
+    transition: color 0.3s ease;
 }
+
+a:hover {
+    color: #005a3c; /* Darker green on hover */
+    text-decoration: underline; /* Add underline on hover for links */
+}
+
+/* Accessibility: Visually hidden class */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
 
 /* Header Styles */
 header {
     background-color: var(--primary-color);
     color: var(--white);
-    padding: 2rem 0;
+    padding: var(--gap-large) 0;
     text-align: center;
     box-shadow: var(--shadow);
+    flex-shrink: 0;
 }
 
 .header-content h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
+    font-size: 2.8rem;
+    margin-bottom: var(--gap-small); /* Increased space below H1 */
+    font-weight: 700;
+    color: var(--white); /* Ensure header text is white */
 }
 
 .header-content h2 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 300;
+    opacity: 0.9;
+    color: var(--white); /* Ensure header text is white */
+}
+
+header a {
+    color: var(--secondary-color); /* Use gold for links in header */
+    font-weight: 400;
+}
+
+header a:hover {
+    color: #ffeb3b; /* Lighter gold on hover */
+    text-decoration: underline;
 }
 
 /* Main Content Styles */
 main {
     max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    margin: var(--gap-large) auto;
+    padding: 0 var(--gap-small);
+    flex-grow: 1;
+    width: 100%; /* Ensure main takes full width on smaller screens */
+}
+
+.search-filter-container {
+    margin-bottom: var(--gap-large);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-medium); /* Increased gap between search and filters */
 }
 
 .search-container {
-    margin-bottom: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    position: relative; /* Needed for positioning the clear button */
+    width: 100%;
 }
 
 #searchInput {
-    padding: 0.8rem 1rem;
+    padding: 1rem 1.2rem; /* Increased padding */
     border: 1px solid var(--light-gray);
     border-radius: var(--border-radius);
-    font-size: 1rem;
+    font-size: 1.1rem; /* Slightly larger font */
     width: 100%;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    padding-right: 2.5rem; /* Make space for the clear button */
 }
 
 #searchInput:focus {
     outline: none;
     border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(0, 103, 71, 0.3); /* More prominent focus shadow */
 }
+
+.clear-search-btn {
+    position: absolute;
+    top: 50%;
+    right: 0.8rem;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--gray-color);
+    cursor: pointer;
+    transition: color 0.2s ease;
+    line-height: 1; /* Prevent extra space */
+    padding: 0.2rem; /* Add some padding for easier clicking */
+}
+
+.clear-search-btn:hover {
+    color: var(--dark-color);
+}
+
 
 .filter-buttons {
     display: flex;
-    gap: 0.5rem;
+    gap: var(--gap-xs); /* Smaller gap between buttons */
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .filter-btn {
-    padding: 0.5rem 1rem;
+    padding: 0.7rem 1.5rem; /* Increased padding */
     background-color: var(--white);
     border: 1px solid var(--light-gray);
     border-radius: var(--border-radius);
     cursor: pointer;
-    transition: all 0.3s;
-    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    font-size: 1rem; /* Standard font size */
+    font-weight: 500;
+    color: var(--gray-color); /* Gray for inactive buttons */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle shadow for buttons */
 }
 
-.filter-btn:hover {
+.filter-btn:hover:not(.active) {
     background-color: var(--light-gray);
+    border-color: var(--gray-color);
+    color: var(--dark-color);
+    transform: translateY(-2px); /* Subtle lift on hover */
 }
 
 .filter-btn.active {
     background-color: var(--primary-color);
     color: var(--white);
     border-color: var(--primary-color);
+    box-shadow: var(--shadow);
+    pointer-events: none; /* Disable clicks on active button */
 }
 
 /* IC Grid Styles */
 .ic-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Slightly larger minimum card size */
+    gap: var(--gap-medium);
+    padding-bottom: var(--gap-medium);
 }
 
 .ic-card {
@@ -119,203 +206,631 @@ main {
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--shadow);
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid var(--light-gray); /* Add a subtle border */
+    opacity: 0; /* Start hidden for animation */
+    animation: fadeInCard 0.5s ease-out forwards; /* Fade-in animation for cards */
 }
 
+/* Stagger card animation */
+/* This can be done more dynamically with JS for larger datasets,
+   but hardcoding a few provides a nice effect for smaller lists */
+.ic-card:nth-child(1) { animation-delay: 0.05s; }
+.ic-card:nth-child(2) { animation-delay: 0.1s; }
+.ic-card:nth-child(3) { animation-delay: 0.15s; }
+.ic-card:nth-child(4) { animation-delay: 0.2s; }
+.ic-card:nth-child(5) { animation-delay: 0.25s; }
+.ic-card:nth-child(6) { animation-delay: 0.3s; }
+.ic-card:nth-child(7) { animation-delay: 0.35s; }
+.ic-card:nth-child(8) { animation-delay: 0.4s; }
+.ic-card:nth-child(9) { animation-delay: 0.45s; }
+.ic-card:nth-child(10) { animation-delay: 0.5s; }
+
+
 .ic-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .ic-card-header {
     background-color: var(--primary-color);
     color: var(--white);
-    padding: 1rem;
+    padding: var(--gap-small);
+    flex-shrink: 0;
+    border-bottom: 2px solid var(--secondary-color); /* Add a separator */
 }
 
 .ic-card-header h3 {
     font-family: 'Source Code Pro', monospace;
-    font-size: 1.2rem;
-    margin-bottom: 0.2rem;
+    font-size: 1.4rem; /* Slightly larger IC number */
+    margin-bottom: 0.4rem;
+    color: var(--white);
 }
 
 .ic-card-header p {
-    font-size: 0.9rem;
-    opacity: 0.9;
+    font-size: 1.05rem; /* Slightly larger function text */
+    opacity: 0.95;
+    color: var(--white);
 }
 
 .ic-card-body {
-    padding: 1rem;
+    padding: var(--gap-small);
+    flex-grow: 1;
 }
 
 .ic-card-body p {
-    font-size: 0.9rem;
+    font-size: 1rem; /* Standardized text size */
     color: var(--gray-color);
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    text-overflow: ellipsis;
 }
+
+/* Status Messages */
+.status-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--gray-color);
+    margin-top: var(--gap-large);
+    grid-column: 1 / -1; /* Span across all columns in the grid */
+}
+
+.status-message.error {
+    color: #dc3545; /* Bootstrap danger red */
+}
+
+.status-message.loading {
+    &::after {
+        content: '';
+        display: inline-block;
+        width: 1.2em;
+        height: 1.2em;
+        border: 3px solid var(--gray-color);
+        border-top-color: var(--primary-color);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin-left: 0.5rem;
+        vertical-align: middle;
+    }
+}
+
+
+/* Load More Button */
+.load-more-btn {
+    display: block; /* Make it a block element to center */
+    margin: var(--gap-large) auto; /* Center the button */
+    padding: 0.8rem 2rem;
+    background-color: var(--secondary-color);
+    color: var(--dark-color);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    box-shadow: var(--shadow);
+}
+
+.load-more-btn:hover {
+    background-color: #ffdb58; /* Lighter gold on hover */
+    transform: translateY(-2px);
+}
+
+.load-more-btn:active {
+    transform: translateY(0);
+}
+
+.load-more-btn:disabled {
+    background-color: var(--light-gray);
+    color: var(--gray-color);
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
 
 /* Footer Styles */
 footer {
     background-color: var(--dark-color);
-    color: var(--white);
+    color: var(--light-gray); /* Lighter text for dark background */
     text-align: center;
-    padding: 1.5rem 0;
-    margin-top: 2rem;
+    padding: var(--gap-medium) 0;
+    margin-top: var(--gap-large); /* Add space above footer */
+    flex-shrink: 0;
+    border-top: 3px solid var(--secondary-color); /* Add a prominent border */
 }
 
 footer p {
-    font-size: 0.9rem;
+    font-size: 0.95rem; /* Slightly larger footer text */
+    margin: 0.5rem 0;
+}
+
+footer a {
+    color: var(--light-gray); /* Links stand out less but are still visible */
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--white); /* White on hover */
+    text-decoration: underline;
+}
+
+.attribution {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    font-style: normal; /* Remove italic */
+    margin-top: var(--gap-xs); /* Add space above attribution */
+}
+
+/* Add styles for highlighting names in the attribution */
+.attribution .highlight-name {
+    font-weight: 700; /* Make the name bold */
+    /* Use secondary color for highlight, or choose another from your palette */
+    color: var(--secondary-color);
+    /* You could add other styles like text-shadow, etc. */
+    /* text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); */
+}
+
+/* Ensure links within attribution still work and have hover effect */
+.attribution a {
+    color: var(--light-gray); /* Default link color in footer */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.attribution a:hover {
+    color: var(--white); /* White on hover */
+    text-decoration: underline;
+}
+
+/* Ensure the highlighted span within the link also inherits or is set correctly */
+.attribution a .highlight-name {
+     /* Inherit or set the highlight color explicitly if needed */
+     color: var(--secondary-color);
 }
 
 /* Modal Styles */
 .modal {
-    display: none;
+    display: none; /* Hidden by default */
     position: fixed;
-    z-index: 100;
+    z-index: 1000; /* Ensure modal is on top */
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
+    backdrop-filter: blur(8px); /* Increased blur */
+    -webkit-backdrop-filter: blur(8px);
+    padding: var(--gap-medium); /* Add padding around modal */
+    opacity: 0; /* Start hidden for fade-in */
+    animation: fadeIn 0.3s ease-out forwards; /* Fade-in animation */
 }
 
 .modal-content {
     background-color: var(--white);
-    margin: 2rem auto;
-    padding: 2rem;
+    margin: var(--gap-large) auto; /* Center block */
+    padding: var(--gap-large);
     border-radius: var(--border-radius);
-    width: 90%;
+    width: 98%; /* Wider on larger screens */
     max-width: 900px;
-    max-height: 90vh;
+    max-height: 95vh; /* Max height relative to viewport */
     overflow-y: auto;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4); /* More prominent shadow */
     position: relative;
+    transform: translateY(-50px); /* Start above for slide-in */
+    animation: slideInFromTop 0.3s ease-out forwards; /* Slide-in animation */
 }
 
-.close {
+/* Specific animation for image modal to prevent initial slide */
+.modal.image-modal .modal-content {
+     transform: translateY(0); /* No vertical slide for image modal */
+     padding: var(--gap-small); /* Match image-modal-content padding */
+     max-width: 95vw;
+     max-height: 95vh;
+}
+
+
+.modal .close {
     position: absolute;
-    top: 1rem;
-    right: 1.5rem;
-    font-size: 1.8rem;
-    font-weight: bold;
+    top: var(--gap-medium); /* Adjusted position */
+    right: var(--gap-medium); /* Adjusted position */
+    font-size: 2.2rem; /* Slightly larger close button */
+    font-weight: normal; /* Normal weight */
     color: var(--gray-color);
     cursor: pointer;
-    transition: color 0.3s;
+    transition: color 0.3s ease, transform 0.3s ease;
+    background: none;
+    border: none;
+    padding: 0;
+    line-height: 1;
+    z-index: 10; /* Ensure close button is above image */
 }
 
-.close:hover {
+.modal .close:hover {
     color: var(--dark-color);
+    transform: rotate(90deg);
 }
 
 .modal-header {
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
+    margin-bottom: var(--gap-medium);
+    padding-bottom: var(--gap-small);
     border-bottom: 1px solid var(--light-gray);
 }
 
 .modal-header h2 {
     font-family: 'Source Code Pro', monospace;
-    font-size: 1.8rem;
+    font-size: 2.2rem; /* Larger IC number */
     color: var(--primary-color);
+    margin-bottom: var(--gap-xs);
 }
 
 .modal-header h3 {
-    font-size: 1.2rem;
+    font-size: 1.5rem; /* Larger function name */
     color: var(--gray-color);
+    font-weight: 400;
 }
 
 .modal-body {
-    margin-top: 1rem;
+    margin-top: var(--gap-small);
 }
 
 .modal-section {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--gap-medium);
+    padding-bottom: var(--gap-small);
+    border-bottom: 1px dashed var(--light-gray);
+    display: flex; /* Use flex for internal layout */
+    flex-direction: column; /* Stack content */
+}
+
+.modal-section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
 }
 
 .modal-section h4 {
-    font-size: 1.1rem;
-    margin-bottom: 0.8rem;
+    font-size: 1.3rem; /* Larger section title */
+    margin-bottom: var(--gap-small);
     color: var(--primary-color);
+    border-left: 4px solid var(--secondary-color);
+    padding-left: 0.8rem;
+    font-weight: 500;
 }
 
 .modal-row {
     display: flex;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
+    gap: var(--gap-large); /* Increased gap between image sections */
+    margin-bottom: var(--gap-medium);
+    flex-wrap: wrap;
 }
 
 .modal-row .modal-section {
     flex: 1;
+    min-width: 300px; /* Increased minimum width */
+    border-bottom: none;
+    padding-bottom: 0;
+    /* display: flex; flex-direction: column; - Moved to .modal-section */
 }
 
 .image-container {
     background-color: var(--light-color);
     border-radius: var(--border-radius);
-    padding: 1rem;
+    padding: var(--gap-small);
     min-height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    flex-grow: 1; /* Allow image container to grow */
+}
+
+.image-container:hover {
+    background-color: var(--light-gray);
 }
 
 .image-container img {
     max-width: 100%;
-    max-height: 300px;
+    max-height: 350px; /* Slightly increased max image height */
     object-fit: contain;
+    display: block;
+    transition: transform 0.3s ease; /* Add transform transition */
+}
+
+.image-container img:hover {
+     transform: scale(1.03); /* Subtle zoom on hover */
+}
+
+
+.modal-section .not-available {
+    color: var(--gray-color);
+    font-style: italic;
+    text-align: center;
+    margin-top: var(--gap-small); /* Space above "Not available" text */
 }
 
 .datasheet-link {
     display: inline-block;
-    padding: 0.6rem 1.2rem;
+    /* Adjusted padding for a slightly smaller button */
+    padding: 0.5rem 1rem; /* Horizontal padding further adjusted */
     background-color: var(--primary-color);
     color: var(--white);
     border-radius: var(--border-radius);
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    font-weight: 500;
+    text-align: center; /* Center text within the button */
 }
+
 
 .datasheet-link:hover {
-    background-color: #005a3c;
+    background-color: #005a3c; /* Darker shade for hover */
+    transform: translateY(-2px);
+    text-decoration: none; /* Remove underline on hover for button-like links */
 }
 
-.not-available {
-    color: var(--gray-color);
-    font-style: italic;
+.datasheet-link:active {
+    transform: translateY(0); /* Reset transform on click */
 }
+
+
+/* Image Enlargement Modal Styles */
+.modal.image-modal {
+    /* Removed display: flex here */
+    align-items: center;
+    justify-content: center;
+    padding: var(--gap-small); /* Add padding for small screens */
+}
+
+.image-modal-content {
+    display: flex; /* Keep flex here to center image *within* the content box */
+    align-items: center;
+    justify-content: center;
+    width: 98%;
+    max-width: 95vw; /* Increased max width */
+    max-height: 95vh; /* Increased max height */
+    margin: auto;
+    position: relative;
+    background-color: var(--white); /* Add background for the image container */
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: var(--gap-small);
+}
+
+#enlargedImage {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    cursor: pointer; /* Keep cursor pointer for closing via click outside */
+}
+
+/* Back to Top Button */
+.back-to-top-btn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed position */
+    bottom: var(--gap-medium); /* Distance from bottom */
+    right: var(--gap-medium); /* Distance from right */
+    z-index: 99; /* Above most content, below modals */
+    font-size: 1.8rem; /* Larger arrow */
+    width: 45px;
+    height: 45px;
+    background-color: rgba(0, 103, 71, 0.7); /* Primary color with opacity */
+    color: var(--white);
+    border: none;
+    border-radius: 50%; /* Circular button */
+    cursor: pointer;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    box-shadow: var(--shadow);
+    line-height: 1; /* Center the arrow vertically */
+    padding-bottom: 0.2rem; /* Fine-tune vertical alignment */
+}
+
+.back-to-top-btn:hover {
+    background-color: var(--primary-color); /* Solid color on hover */
+    opacity: 1;
+}
+
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInFromTop {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeInCard {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Optional: Loading spinner animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 
 /* Responsive Styles */
+@media (max-width: 992px) {
+    .ic-grid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+}
+
 @media (max-width: 768px) {
     .modal-row {
         flex-direction: column;
+        gap: var(--gap-medium);
     }
-    
+
+    .modal-row .modal-section {
+         border-bottom: 1px dashed var(--light-gray);
+         padding-bottom: var(--gap-small);
+         min-width: 0; /* Allow sections to shrink */
+    }
+
+    .modal-row .modal-section:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
     .header-content h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
     }
-    
+
     .header-content h2 {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
     }
-    
+
     .ic-grid {
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: var(--gap-small);
     }
+
+    .modal-content {
+        padding: var(--gap-medium);
+        margin: var(--gap-medium) auto;
+    }
+
+    .modal .close {
+        font-size: 2rem;
+        top: var(--gap-small);
+        right: var(--gap-small);
+    }
+
+    .modal-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .modal-header h3 {
+        font-size: 1.2rem;
+    }
+
+    .modal-section h4 {
+        font-size: 1.2rem;
+    }
+
+     .filter-buttons {
+        gap: var(--gap-xs); /* Tighter buttons */
+     }
+
+     .filter-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.95rem;
+     }
+
+     .image-container img {
+        max-height: 250px; /* Reduce max image height in modal on smaller screens */
+     }
+
+     .back-to-top-btn {
+        bottom: var(--gap-small);
+        right: var(--gap-small);
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+     }
 }
 
-@media (max-width: 480px) {
-    .modal-content {
-        padding: 1.5rem;
+@media (max-width: 576px) {
+     header {
+        padding: var(--gap-medium) 0;
+     }
+
+    .header-content h1 {
+        font-size: 1.8rem;
     }
-    
+
+    .header-content h2 {
+        font-size: 1.1rem;
+    }
+
+    main {
+        margin: var(--gap-medium) auto;
+    }
+
+    .search-filter-container {
+        margin-bottom: var(--gap-medium);
+        gap: var(--gap-small);
+    }
+
+     #searchInput {
+         font-size: 1rem;
+         padding: 0.8rem 1rem;
+         padding-right: 2.2rem; /* Adjust for smaller clear button */
+     }
+
+     .clear-search-btn {
+         font-size: 1.3rem;
+         right: 0.6rem;
+     }
+
+
     .ic-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Stack cards on very small screens */
+        gap: var(--gap-small);
     }
-    
-    .filter-buttons {
-        justify-content: center;
+
+    .modal-content {
+        padding: var(--gap-small);
+        margin: var(--gap-medium) auto;
     }
+
+    .modal .close {
+        font-size: 1.8rem;
+        top: var(--gap-xs);
+        right: var(--gap-xs);
+    }
+
+    .modal-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .modal-header h3 {
+        font-size: 1.1rem;
+    }
+
+    .modal-section h4 {
+        font-size: 1.1rem;
+        padding-left: 0.6rem; /* Adjust padding */
+    }
+
+    .modal-body p {
+        font-size: 0.95rem;
+    }
+
+
+    .datasheet-link {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.95rem;
+    }
+
+    .status-message {
+        font-size: 1rem;
+    }
+
+     .load-more-btn {
+        padding: 0.6rem 1.5rem;
+        font-size: 1rem;
+     }
+
+     .back-to-top-btn {
+        bottom: var(--gap-small);
+        right: var(--gap-small);
+        width: 35px;
+        height: 35px;
+        font-size: 1.3rem;
+     }
 }

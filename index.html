@@ -3,41 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hardware Lab - IC Database</title>
+    <title>IC Database - CSE, IIT KGP</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <div class="header-content">
-            <h1>Hardware Lab</h1>
-            <h2>CSE Department, IIT Kharagpur</h2>
+            <h1>TTL and CMOS IC Repository</h1>
+            <h2>Hardware Lab, <a href="https://cse.iitkgp.ac.in/" target="_blank" rel="noopener noreferrer">CSE Department</a>, <a href="https://www.iitkgp.ac.in/" target="_blank" rel="noopener noreferrer">IIT Kharagpur</a></h2>
         </div>
     </header>
 
     <main>
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Search by IC Number or Function...">
-            <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="all">All ICs</button>
-                <button class="filter-btn" data-filter="ttl">TTL ICs</button>
-                <button class="filter-btn" data-filter="cmos">CMOS ICs</button>
+        <div class="search-filter-container">
+            <div class="search-container">
+                <label for="searchInput" class="visually-hidden">Search ICs</label>
+                <input type="text" id="searchInput" placeholder="Search by IC Number, Function or Description...">
+                <button id="clearSearchBtn" class="clear-search-btn" aria-label="Clear search input" style="display: none;">&times;</button>
+            </div>
+            <div class="filter-buttons" role="group" aria-label="Filter ICs by family">
+                <button class="filter-btn active" data-filter="all" aria-pressed="true">All ICs</button>
+                <button class="filter-btn" data-filter="ttl" aria-pressed="false">TTL ICs</button>
+                <button class="filter-btn" data-filter="cmos" aria-pressed="false">CMOS ICs</button>
             </div>
         </div>
 
-        <div class="ic-grid" id="icContainer">
-            <!-- IC cards will be dynamically inserted here -->
-        </div>
+
+        <div class="ic-grid" id="icContainer" aria-live="polite" aria-atomic="true">
+            </div>
+
+         <div id="loadingMessage" class="status-message loading" aria-hidden="false">Loading IC data...</div>
+         <div id="errorMessage" class="status-message error" style="display: none;" aria-hidden="true">Error loading IC data. Please check the CSV files and try again.</div>
+          <div id="noResultsMessage" class="status-message no-results" style="display: none;" aria-hidden="true">No ICs found matching your criteria.</div>
+
+        <button id="loadMoreBtn" class="load-more-btn" style="display: none;">Load More</button>
+         <div id="endOfResultsMessage" class="status-message end-of-results" style="display: none;" aria-hidden="true">End of results.</div>
     </main>
 
     <footer>
         <p>&copy; 2025 Hardware Lab, CSE Department, IIT Kharagpur</p>
+        <p class="attribution">This website is created by <a href="https://cse.iitkgp.ac.in/~gopal" target="_blank" rel="noopener noreferrer"><span class="highlight-name">Gopal</span></a> as Design Lab Project under the guidance of <a href="http://www.facweb.iitkgp.ac.in/~isg/" target="_blank" rel="noopener noreferrer"><span class="highlight-name">Professor Indranil Sen Gupta</span></a>.</p>
     </footer>
 
-    <!-- IC Details Modal -->
-    <div id="icModal" class="modal">
+    <div id="icModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalICNumber">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <button class="close" id="closeModalBtn" aria-label="Close IC Details Modal">&times;</button>
             <div class="modal-header">
                 <h2 id="modalICNumber"></h2>
                 <h3 id="modalFunction"></h3>
@@ -48,22 +59,35 @@
                     <p id="modalDescription"></p>
                 </div>
                 <div class="modal-row">
-                    <div class="modal-section">
+                    <div id="modalConnectionSection" class="modal-section image-section" style="display: none;">
                         <h4>Connection Diagram</h4>
-                        <div id="modalConnectionDiagram" class="image-container"></div>
+                        <div id="modalConnectionDiagram" class="image-container" role="img" aria-label="Connection Diagram Image"></div>
+                         <p class="not-available" id="connDiagramNA" style="display: none;">Image not available</p>
                     </div>
-                    <div class="modal-section">
+                    <div id="modalFunctionSection" class="modal-section image-section" style="display: none;">
                         <h4>Function Table</h4>
-                        <div id="modalFunctionTable" class="image-container"></div>
+                        <div id="modalFunctionTable" class="image-container" role="img" aria-label="Function Table Image"></div>
+                        <p class="not-available" id="funcTableNA" style="display: none;">Image not available</p>
                     </div>
                 </div>
                 <div class="modal-section">
                     <h4>Datasheet</h4>
-                    <a id="modalDatasheetLink" href="#" target="_blank" class="datasheet-link">View Datasheet</a>
+                    <a id="modalDatasheetLink" href="#" target="_blank" rel="noopener noreferrer" class="datasheet-link">View Datasheet</a>
+                    <p id="modalDatasheetNA" class="not-available" style="display: none;">Datasheet link not available</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <div id="imageModal" class="modal image-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Enlarged Image">
+        <div class="image-modal-content">
+             <button class="close" id="closeImageModalBtn" aria-label="Close Enlarged Image Modal">&times;</button>
+            <img id="enlargedImage" src="" alt="Enlarged Diagram or Table">
+        </div>
+    </div>
+
+    <button id="backToTopBtn" class="back-to-top-btn" title="Go to top" style="display: none;">&#x2191;</button>
+
 
     <script src="script.js"></script>
 </body>
